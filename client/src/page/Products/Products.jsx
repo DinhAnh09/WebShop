@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import List from "../../components/List/List";
 import useFetch from "../../hooks/useFetch";
 import "./Products.scss";
-
+import SearchIcon from "@mui/icons-material/Search";
 const Products = () => {
   const catId = parseInt(useParams().id);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [sort, setSort] = useState('asc');
   const [selectedSubCats, setSelectedSubCats] = useState([]);
-
+const [valueSearch, setValueSearch] = useState("");
+const [valueFilter, setValueFilter] = useState("");
   const { data, loading, error } = useFetch(
     `/sub-categories?[filters][categories][id][$eq]=${catId}`
   );
@@ -25,10 +26,15 @@ const Products = () => {
         : selectedSubCats.filter((item) => item !== value)
     );
   };
-
   return (
     <div className="products">
       <div className="left">
+      <div className="inputSearch">
+        <input type="text" placeholder="Search Item" onChange={(e)=>{setValueSearch(e.target.value)}}/>
+        <button onClick={()=>setValueFilter(valueSearch)}>
+        <SearchIcon/>
+        </button>
+      </div>
         <div className="filterItem">
           <h2>Danh Mục Sản Phẩm</h2>
           {data?.map((item) => (
@@ -86,7 +92,7 @@ const Products = () => {
           src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
         />
-        <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
+        <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats} valueSearch={valueFilter}/>
       </div>
     </div>
   );

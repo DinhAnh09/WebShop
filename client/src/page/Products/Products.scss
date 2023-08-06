@@ -40,3 +40,19 @@
       }
     }
   }
+
+  .inputSearch{
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    input{
+      width: 100%;
+      padding-left: 10px;
+      padding: 5px;
+    }
+    .css-i4bv87-MuiSvgIcon-root{
+      cursor: pointer;
+    }
+  }
